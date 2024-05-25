@@ -9,23 +9,23 @@
     </head>
 
     <?php
-        // Establishing connection from PHP to SQL
+        // Establishes connection from PHP to MySQL.
         require_once("settings.php");
-        $connection = @mysqli_connect($host, $user, $pwd, $sql_db);    
+        $connection = @mysqli_connect($host, $user, $pwd, $sql_db); 
         
-        // This function returns an array, that has the required propeties of a row 
+        // This function returns an array that has the required columns of a row.
         function returnRowOfDatabase($dbConnection, $websiteQuery) {
             $result = mysqli_query($dbConnection, $websiteQuery);
             $row = mysqli_fetch_row($result);
             return $row;
-        }
+        }    
     ?>
 
     <body class="body">
         <form method="POST" action="result.php" class="form">
             <div class="title-box box"> 
                 <h1> Archery Score Recorder </h1>
-                <h3> Add new scores. </h3>
+                <h3> Record each arrow shot. </h3>
             </div>
 
             <div class="title-box box"> 
@@ -35,31 +35,34 @@
             <div class="inputs-box box">
                 <h2> Selected Archer </h2>
 
-                <!-- This section prints out the chosen archer from the previous page -->
                 <?php
+                    // This section prints out the chosen archer from the previous page.
                     $row = returnRowOfDatabase($connection, "SELECT FirstName, LastName, ArcherID FROM Archers WHERE ArcherID = $_POST[archer]");
                     echo "<p> Archer: $row[0] $row[1] ($row[2]) </p>";
                 ?> 
 
-                <!-- This section prints out the chosen round from the previous page -->
+                
                 <?php
+                    // This section prints out the chosen round from the previous page.
                     $row = returnRowOfDatabase($connection, "SELECT Name, RoundID FROM Rounds WHERE RoundID = $_POST[round]");
                     echo "<p> Current Round: $row[0] ($row[1]) </p>";
                 ?> 
 
-                <!-- This section prints out the chosen round from the previous page -->
+                
                 <?php
-                    $row = returnRowOfDatabase($connection, "SELECT Name, EquipmentID FROM Equipments WHERE EquipmentID = $_POST[equipment]");
+                    // This section prints out the chosen round from the previous page.
+                    $row = returnRowOfDatabase($connection, "SELECT Name, EquipmentID FROM Equipment WHERE EquipmentID = $_POST[equipment]");
                     echo "<p> Equipment Used: $row[0] ($row[1]) </p>";
                 ?>
             </div>
 
             <?php
+                // Loops through number of ends entered previously. 
                 for ($i = 0; $i < $_POST['numberOfEnds']; $i++) {
                     echo "<div class='inputs-box box'>";
                     echo "<h2> End " . ($i + 1) . "</h2>";
 
-                    // Prints the archer chosen in the previous page
+                    // Prints the archer chosen in the previous page.
                     $row = returnRowOfDatabase($connection, "SELECT FirstName, LastName, ArcherID FROM Archers WHERE ArcherID = $_POST[archer]");
                     echo "<p> Shot By: $row[0] $row[1] ($row[2]) </p>";
 

@@ -108,7 +108,6 @@
                         echo 
                             '<tr>
                                 <th>Shot ID</th>
-                                <th>Score ID</th>
                                 <th>End Number</th>
                                 <th>Arrow Number</th>
                                 <th>Score</th>
@@ -119,7 +118,6 @@
                             echo 
                                 "<tr>
                                     <td> $details[ArrowScoreID] </td>
-                                    <td> $details[ScoreID] </td>
                                     <td> $details[EndNumber] </td>
                                     <td> $details[ArrowNumber] </td>
                                     <td> $details[ArrowScore] </td>

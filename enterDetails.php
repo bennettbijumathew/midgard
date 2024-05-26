@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <title>ASR: New Score</title>
+        <title>Score Recorder</title>
     </head>
 
     <?php
@@ -34,7 +34,7 @@
                 <select name='round' class='input' readonly>
                     <?php                  
                         // Gets the result from the MySQL query.
-                        $result = mysqli_query($connection, "SELECT RoundID, CompetitionID, Name, EquipmentID FROM Rounds WHERE RoundID = $_POST[round]");
+                        $result = mysqli_query($connection, "SELECT RoundID, CompetitionID, Name, EquipmentID FROM Round WHERE RoundID = $_POST[round]");
 
                         // Shows the chosen option from the previous page. 
                         while ($rounds = mysqli_fetch_array($result)) {
@@ -51,7 +51,7 @@
                 <select name="archer" class="input">
                     <?php     
                         // Gets the result from the MySQL query.                        
-                        $result = mysqli_query($connection, "SELECT ArcherID, FirstName, LastName FROM Archers");
+                        $result = mysqli_query($connection, "SELECT ArcherID, FirstName, LastName FROM Archer");
 
                         // Adds all of the options for the archers. 
                         while ($archers = mysqli_fetch_array($result)) {
@@ -72,7 +72,7 @@
 
                         // Adds all of the options for equipments. The selected equipment is based on the round's default equipment.  
                         while ($equipments = mysqli_fetch_array($result)) {
-                            $roundEquipment = returnRowOfDatabase($connection, "SELECT EquipmentID, RoundID FROM Rounds WHERE EquipmentID = $equipments[EquipmentID] AND RoundID = $_POST[round]");
+                            $roundEquipment = returnRowOfDatabase($connection, "SELECT EquipmentID, RoundID FROM Round WHERE EquipmentID = $equipments[EquipmentID] AND RoundID = $_POST[round]");
 
                             if (($equipments['EquipmentID']) == $roundEquipment[0]) {
                                 echo "<option value='$equipments[EquipmentID]' selected> $equipments[EquipmentID]: $equipments[Name] </td>";

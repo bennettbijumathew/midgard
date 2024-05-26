@@ -37,14 +37,14 @@
 
                 <?php
                     // This section prints out the chosen archer from the previous page.
-                    $row = returnRowOfDatabase($connection, "SELECT FirstName, LastName, ArcherID FROM Archers WHERE ArcherID = $_POST[archer]");
+                    $row = returnRowOfDatabase($connection, "SELECT FirstName, LastName, ArcherID FROM Archer WHERE ArcherID = $_POST[archer]");
                     echo "<p> Archer: $row[0] $row[1] ($row[2]) </p>";
                 ?> 
 
                 
                 <?php
                     // This section prints out the chosen round from the previous page.
-                    $row = returnRowOfDatabase($connection, "SELECT Name, RoundID FROM Rounds WHERE RoundID = $_POST[round]");
+                    $row = returnRowOfDatabase($connection, "SELECT Name, RoundID FROM Round WHERE RoundID = $_POST[round]");
                     echo "<p> Current Round: $row[0] ($row[1]) </p>";
                 ?> 
 
@@ -63,11 +63,11 @@
                     echo "<h2> End " . ($i + 1) . "</h2>";
 
                     // Prints the archer chosen in the previous page.
-                    $row = returnRowOfDatabase($connection, "SELECT FirstName, LastName, ArcherID FROM Archers WHERE ArcherID = $_POST[archer]");
+                    $row = returnRowOfDatabase($connection, "SELECT FirstName, LastName, ArcherID FROM Archer WHERE ArcherID = $_POST[archer]");
                     echo "<p> Shot By: $row[0] $row[1] ($row[2]) </p>";
 
                     // Prints the chosen round from the previous page
-                    $row = returnRowOfDatabase($connection, "SELECT TargetFace FROM Rounds WHERE RoundID = $_POST[round]");
+                    $row = returnRowOfDatabase($connection, "SELECT TargetFace FROM Round WHERE RoundID = $_POST[round]");
                     echo "<p> Target Face: $row[0] </p>";
 
                     // Creates inputs with the name being attached to an two dimension array that accesses end number and the arrows shot for that end
@@ -79,7 +79,7 @@
 
                     // Inserts a new score into the database
                     $date = date_create()->format('Y-m-d');
-                    $query = "INSERT INTO `Scores` (`RoundID`, `ArcherID`, `EquipmentID`, `Number`, `Date`) VALUES ($_POST[round], $_POST[archer], $_POST[equipment], 0, '$date')";
+                    $query = "INSERT INTO `Score` (`RoundID`, `ArcherID`, `EquipmentID`, `Number`, `Date`) VALUES ($_POST[round], $_POST[archer], $_POST[equipment], 0, '$date')";
                     $result = mysqli_query($connection, $query);    
         
                     if(!$result){

@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <title>ASR: New Score</title>
+        <title>Score Recorder</title>
     </head>
 
     <?php
@@ -31,7 +31,7 @@
                 <select name='competition' class='input'>
                     <?php             
                         // Gets the result from the MySQL query.     
-                        $result = mysqli_query($connection, "SELECT CompetitionID, Name FROM Competitions");
+                        $result = mysqli_query($connection, "SELECT CompetitionID, Name FROM Competition");
 
                         // Prints out all of the competitions stored in the database.
                         while ($competitions = mysqli_fetch_array($result)) {

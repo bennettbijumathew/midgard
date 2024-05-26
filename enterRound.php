@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <title>ASR: New Score</title>
+        <title>Score Recorder</title>
     </head>
 
     <?php
@@ -34,7 +34,7 @@
                 <select name='round' class='input'>
                     <?php                  
                         // Gets the result from the MySQL query.
-                        $result = mysqli_query($connection, "SELECT RoundID, CompetitionID, Name, EquipmentID FROM Rounds WHERE CompetitionID = $_POST[competition]");
+                        $result = mysqli_query($connection, "SELECT RoundID, CompetitionID, Name, EquipmentID FROM Round WHERE CompetitionID = $_POST[competition]");
 
                         // Adds all of the round option's with the default equipment used for the round.
                         while ($details = mysqli_fetch_array($result)) {

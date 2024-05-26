@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <title>ASR: Result</title>
+        <title>Score Recorder</title>
     </head>
 
     <?php
@@ -38,7 +38,7 @@
                 $arrowScores = $_POST['arrowScores'];
 
                 // Gets the most recent score entry from the database. 
-                $score = returnRowOfDatabase($connection, "SELECT * FROM Scores ORDER BY ScoreID DESC LIMIT 1");
+                $score = returnRowOfDatabase($connection, "SELECT * FROM Score ORDER BY ScoreID DESC LIMIT 1");
 
                 // This loops through each end and sorts them out. 
                 for ($endNumber = 0; $endNumber < count($arrowScores); $endNumber++) {
@@ -48,10 +48,10 @@
                     for ($arrowNumber = 0; $arrowNumber < 6; $arrowNumber++) {
                         $endScore = $arrowScores[$endNumber][$arrowNumber];
                         $totalArrowScore += $endScore;
-                        $result = mysqli_query($connection, "INSERT INTO `ArrowScores` (`ScoreID`, `EndNumber`, `ArrowNumber`, `ArrowScore`) VALUES ($score[0], $endNumber, $arrowNumber, $endScore);");    
+                        $result = mysqli_query($connection, "INSERT INTO `ArrowScore` (`ScoreID`, `EndNumber`, `ArrowNumber`, `Number`) VALUES ($score[0], $endNumber+1, $arrowNumber, $endScore);");    
                     }
 
-                    $result = mysqli_query($connection, "UPDATE Scores SET Number = $totalArrowScore ORDER BY ScoreID DESC LIMIT 1");
+                    $result = mysqli_query($connection, "UPDATE Score SET Number = $totalArrowScore ORDER BY ScoreID DESC LIMIT 1");
                 }
 
                 if(!$result){
@@ -66,7 +66,7 @@
 
                 <table class="table"> 
                     <?php
-                        $result = mysqli_query($connection, 'SELECT * FROM Scores ORDER BY ScoreID DESC LIMIT 1');
+                        $result = mysqli_query($connection, 'SELECT * FROM Score ORDER BY ScoreID DESC LIMIT 1');
 
                         echo 
                             '
@@ -102,8 +102,8 @@
 
                 <table class="table"> 
                     <?php
-                        $score = returnRowOfDatabase($connection, 'SELECT ScoreID FROM Scores ORDER BY ScoreID DESC LIMIT 1');               
-                        $result = mysqli_query($connection, "SELECT * FROM ArrowScores WHERE ScoreID = $score[0]");
+                        $score = returnRowOfDatabase($connection, 'SELECT ScoreID FROM Score ORDER BY ScoreID DESC LIMIT 1');               
+                        $result = mysqli_query($connection, "SELECT * FROM ArrowScore WHERE ScoreID = $score[0]");
                         
                         echo 
                             '<tr>
@@ -120,7 +120,7 @@
                                     <td> $details[ArrowScoreID] </td>
                                     <td> $details[EndNumber] </td>
                                     <td> $details[ArrowNumber] </td>
-                                    <td> $details[ArrowScore] </td>
+                                    <td> $details[Number] </td>
                                 </tr>
                             ";
                         }
